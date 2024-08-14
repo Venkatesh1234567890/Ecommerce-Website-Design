@@ -15,69 +15,66 @@ Shopkart | Online Shopping
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{% url 'collections' %}">Collections</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'collections' %}">Products</a></li>
                         <li class="breadcrumb-item active" aria-current="page">{{products.name}}</li>
                     </ol>
                 </nav>
-                {% include 'shop/inc/message.html' %}  
+                {% include 'shop/inc/message.html' %}
             </div>
-            <div class="ms-4" style="margin-left:100px;">
+        </div>
+    
+        <div class="row">
+            <div class="col-12 text-center my-2">
                 {% if products.trending %}
                 <div class="hot">Hot</div>
                 {% endif %}
             </div>
-            <div class="col-6">
-                <img src="{{ products.product_image.url }}" style="width:300px; height:300;" class="card-img-top"
-                    alt="{{products.name}}">
-            </div>  
-                <div class="col-6" style="margin-top:70px;margin-left:-200px;" >
-                    <h5 class="text-success">{{products.name|upper}}</h5>
-                    <p>{{products.vendor}}</p>
-                    <p>{{products.description}}</p>
-                    <h6 class="my-2 text-danger">Current Price : Rs. <s>{{products.original_price}}</s></h6>
-                    <h6 class="my-2 text-success">Offer Price : Rs. {{products.selling_price}}</h6>
-                    <div class="my-3">
-                        {% if products.quantity > 0 %}
-                        <input type="hidden" value="{{products.id}}" id="pid">
-                        
-                        <p>
-                            <div class="input-group" style="width:150px">
-                                <button class="input-group-text bg-success text-light" id="btnMinus"><i class="fa fa-minus"></i></button>
-                                <input type="text" name="qty" id="txtQty" value="1" class="form-control text-center">
-                                <button class="input-group-text bg-success text-light" id="btnPlus" ><i class="fa fa-plus"></i></button>
-                            </div>
-
-                            <form class="input-group" action="{% url 'add_to_cart_main' %}" method="post">
-                                {% csrf_token %}
-                                <input type="hidden" value="1" name="quantity_1" id="quantityUpdate">
-                                <input type="hidden" value="{{products.id}}" name="products_id">
-                           
-                                <button type="submit" class="btn btn-primary" id="nh"><i class="fa fa-shopping-cart"></i> Add to cart</button>
-                            </form>
-                        </p>
-                       
-                       
-                        {% else %}
-                        <button class="btn btn-secondary"><i class="fa fa-minus"></i> Out of Stock</button>
-                        {% endif %}
-
-                        <form class="input-group" action="{% url 'fav_page_main' %}" method="post">
-                            {% csrf_token %}
-                            <input type="hidden" value="1" name="quantity_1" id="quantityUpdate">
-                            <input type="hidden" value="{{products.id}}" name="products_id">
-                            <!-- <button class="btn btn-danger" id=""><i class="fa fa-heart"></i></button> -->
-                        </form>
-                        <form class="input-group" action="{% url 'favorite' %}" method="post">
-                            {% csrf_token %}
-                            <input type="hidden" value="{{products.id}}" name="products_id">
-                            <input type="hidden" value="1" name="quantity_1" id="quantityUpdate">
-                            <button class="btn btn-danger" id=""><i class="fa fa-heart"></i></button>
-                        </form>
-                        
+        </div>
+    
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <img src="{{ products.product_image.url }}" style="width:100%; max-width:300px; height:auto;" class="card-img-top" alt="{{products.name}}">
+            </div>
+    
+            <div class="col-md-6 col-sm-12 mt-4">
+                <h5 class="text-success">{{products.name|upper}}</h5>
+                <p>{{products.vendor}}</p>
+                <p>{{products.description}}</p>
+                <h6 class="my-2 text-danger">Current Price : Rs. <s>{{products.original_price}}</s></h6>
+                <h6 class="my-2 text-success">Offer Price : Rs. {{products.selling_price}}</h6>
+                <div class="my-3">
+                    {% if products.quantity > 0 %}
+                    <input type="hidden" value="{{products.id}}" id="pid">
+                    <div class="input-group mb-3" style="max-width: 150px;">
+                        <button class="input-group-text bg-success text-light" id="btnMinus"><i class="fa fa-minus"></i></button>
+                        <input type="text" name="qty" id="txtQty" value="1" class="form-control text-center">
+                        <button class="input-group-text bg-success text-light" id="btnPlus"><i class="fa fa-plus"></i></button>
                     </div>
+                    <form class="input-group mb-3" action="{% url 'add_to_cart_main' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" value="1" name="quantity_1" id="quantityUpdate">
+                        <input type="hidden" value="{{products.id}}" name="products_id">
+                        <button type="submit" class="btn btn-primary" id="nh"><i class="fa fa-shopping-cart"></i> Add to cart</button>
+                    </form>
+                    {% else %}
+                    <button class="btn btn-secondary mb-3"><i class="fa fa-minus"></i> Out of Stock</button>
+                    {% endif %}
+                    <form class="input-group mb-3" action="{% url 'fav_page_main' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" value="1" name="quantity_1" id="quantityUpdate">
+                        <input type="hidden" value="{{products.id}}" name="products_id">
+                    </form>
+                    <form class="input-group mb-3" action="{% url 'favorite' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" value="{{products.id}}" name="products_id">
+                        <input type="hidden" value="1" name="quantity_1" id="quantityUpdate">
+                        <button class="btn btn-danger" id=""><i class="fa fa-heart"></i></button>
+                    </form>
                 </div>
             </div>
         </div>
+    </div>
+    
 </section>
 <script>
     document.addEventListener("DOMContentLoaded", function(event) {

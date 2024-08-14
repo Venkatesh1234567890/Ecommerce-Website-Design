@@ -12,7 +12,9 @@ import json
 def home(request):
     print(request.user)
     products = Product.objects.filter(trending=1)
-    return render(request, 'shop/index.html', {"products": products})
+    categories = Category.objects.all()
+    return render(request, 'shop/index.html', {"products": products,'categories': categories})
+
 
 def favviewpage(request):
     if request.user.is_authenticated:
