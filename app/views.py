@@ -43,7 +43,7 @@ def remove_cart(request,cid):
     cartitem.delete()
     return redirect("/")    
 
-
+@csrf_exempt
 def fav_page(request):
     if request.method == 'POST':
         try:
@@ -61,7 +61,7 @@ def fav_page(request):
             return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
     return JsonResponse({'status': 'invalid request'}, status=400)
                                                 
-  
+@csrf_exempt
 def add_to_cart(request):
     if request.method == 'POST':
         try:
@@ -86,6 +86,7 @@ def logout_page(request):
         messages.success(request, "Logged out Successfully")
         return redirect("/")
 
+@csrf_exempt
 def login_page(request):
  
     if request.method == 'POST':
@@ -102,7 +103,7 @@ def login_page(request):
             return redirect("/login_page")
     return render(request, 'shop/login.html')
     
-
+@csrf_exempt
 def register(request):
     form = CustomUserForm()
     if request.method=='POST':
